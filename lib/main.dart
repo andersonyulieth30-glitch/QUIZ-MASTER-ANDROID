@@ -284,6 +284,6 @@ class ResultPage extends StatelessWidget {
             child: Text(en ? 'BACK TO HOME' : 'VOLVER AL INICIO'))),
         ])),
       )),
-    );
+    ));
   }
 }
