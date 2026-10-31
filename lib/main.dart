@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
               boxShadow: [BoxShadow(color: cyan.withOpacity(.22), blurRadius: 28, spreadRadius: 2)],
             ),
             clipBehavior: Clip.antiAlias,
-            child: Image.asset('assets/mastercito.png', fit: BoxFit.cover, alignment: Alignment.topCenter),
+            child: Image.asset('lib/mastercito.png', fit: BoxFit.cover, alignment: Alignment.topCenter)
           )),
           const SizedBox(height: 18),
           const Text('QUIZ MASTER 4.0', textAlign: TextAlign.center,
