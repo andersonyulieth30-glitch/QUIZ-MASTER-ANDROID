@@ -1,0 +1,35 @@
+name: Build QUIZ MASTER APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar proyecto
+        uses: actions/checkout@v4
+
+      - name: Instalar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Crear proyecto Android
+        run: flutter create --platforms=android --project-name quiz_master .
+
+      - name: Instalar dependencias
+        run: flutter pub get
+
+      - name: Generar APK
+        run: flutter build apk --release
+
+      - name: Guardar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: QUIZ-MASTER-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
