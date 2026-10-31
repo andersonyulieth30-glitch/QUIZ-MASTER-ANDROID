@@ -3,6 +3,57 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(const QuizMaster());
 
+const navy = Color(0xFF080D1B);
+const panel = Color(0xFF151F38);
+const cyan = Color(0xFF39D8FF);
+const purple = Color(0xFF9B7BFF);
+
+class QuizQuestion {
+  final String es, en;
+  final List<String> optionsEs, optionsEn;
+  final int answer;
+  const QuizQuestion(this.es, this.en, this.optionsEs, this.optionsEn, this.answer);
+}
+
+class QuizCategory {
+  final String id, es, en;
+  final IconData icon;
+  final Color color;
+  final List<QuizQuestion> questions;
+  const QuizCategory(this.id, this.es, this.en, this.icon, this.color, this.questions);
+}
+
+const categories = <QuizCategory>[
+  QuizCategory('general', 'Cultura general', 'General knowledge', Icons.lightbulb_outline, cyan, [
+    QuizQuestion('¿Cuál es el planeta más grande?', 'What is the largest planet?', ['Marte','Júpiter','Venus','Saturno'], ['Mars','Jupiter','Venus','Saturn'], 1),
+    QuizQuestion('¿Cuántos lados tiene un hexágono?', 'How many sides does a hexagon have?', ['5','6','7','8'], ['5','6','7','8'], 1),
+    QuizQuestion('¿Cuál es la capital de Francia?', 'What is the capital of France?', ['Roma','Madrid','París','Lisboa'], ['Rome','Madrid','Paris','Lisbon'], 2),
+    QuizQuestion('¿Cuántos días tiene una semana?', 'How many days are in a week?', ['5','6','7','8'], ['5','6','7','8'], 2),
+    QuizQuestion('¿Qué instrumento tiene teclas blancas y negras?', 'Which instrument has black and white keys?', ['Guitarra','Piano','Violín','Flauta'], ['Guitar','Piano','Violin','Flute'], 1),
+  ]),
+  QuizCategory('science', 'Ciencia', 'Science', Icons.science_outlined, purple, [
+    QuizQuestion('¿Qué gas absorben las plantas durante la fotosíntesis?', 'Which gas do plants absorb during photosynthesis?', ['Oxígeno','Nitrógeno','Dióxido de carbono','Hidrógeno'], ['Oxygen','Nitrogen','Carbon dioxide','Hydrogen'], 2),
+    QuizQuestion('¿Cuál es el órgano que bombea la sangre?', 'Which organ pumps blood?', ['Pulmón','Corazón','Hígado','Riñón'], ['Lung','Heart','Liver','Kidney'], 1),
+    QuizQuestion('¿Cuál es el estado del agua cuando se convierte en hielo?', 'What state is water in when it becomes ice?', ['Líquido','Gaseoso','Sólido','Plasma'], ['Liquid','Gas','Solid','Plasma'], 2),
+    QuizQuestion('¿Qué estrella está más cerca de la Tierra?', 'Which star is closest to Earth?', ['Sirio','El Sol','Vega','Polaris'], ['Sirius','The Sun','Vega','Polaris'], 1),
+    QuizQuestion('¿Qué parte de la célula contiene gran parte del ADN?', 'Which cell part contains most of its DNA?', ['Núcleo','Membrana','Citoplasma','Pared celular'], ['Nucleus','Membrane','Cytoplasm','Cell wall'], 0),
+  ]),
+  QuizCategory('geography', 'Geografía', 'Geography', Icons.public, const Color(0xFF55D6A5), [
+    QuizQuestion('¿En qué continente está Egipto?', 'Which continent is Egypt in?', ['Asia','Europa','África','Oceanía'], ['Asia','Europe','Africa','Oceania'], 2),
+    QuizQuestion('¿Cuál es el océano más grande?', 'What is the largest ocean?', ['Atlántico','Índico','Ártico','Pacífico'], ['Atlantic','Indian','Arctic','Pacific'], 3),
+    QuizQuestion('¿Cuál es la capital de Colombia?', 'What is the capital of Colombia?', ['Medellín','Cali','Bogotá','Cartagena'], ['Medellin','Cali','Bogota','Cartagena'], 2),
+    QuizQuestion('¿En qué continente está Japón?', 'Which continent is Japan in?', ['Europa','Asia','África','América'], ['Europe','Asia','Africa','America'], 1),
+    QuizQuestion('¿Cuál es el desierto cálido más grande del mundo?', 'What is the largest hot desert in the world?', ['Gobi','Sahara','Kalahari','Atacama'], ['Gobi','Sahara','Kalahari','Atacama'], 1),
+  ]),
+  QuizCategory('math', 'Matemáticas', 'Mathematics', Icons.calculate_outlined, const Color(0xFFFFC857), [
+    QuizQuestion('¿Cuánto es 9 × 7?', 'What is 9 × 7?', ['56','63','72','49'], ['56','63','72','49'], 1),
+    QuizQuestion('¿Cuánto es 100 ÷ 4?', 'What is 100 ÷ 4?', ['20','25','30','40'], ['20','25','30','40'], 1),
+    QuizQuestion('¿Cuál es el resultado de 15 + 28?', 'What is 15 + 28?', ['43','42','45','48'], ['43','42','45','48'], 0),
+    QuizQuestion('¿Cuánto es 12²?', 'What is 12 squared?', ['124','144','122','142'], ['124','144','122','142'], 1),
+    QuizQuestion('Si tienes 3 paquetes con 8 dulces cada uno, ¿cuántos dulces tienes?', 'If you have 3 packs with 8 sweets each, how many sweets do you have?', ['11','18','24','28'], ['11','18','24','28'], 2),
+  ]),
+];
+
 class QuizMaster extends StatelessWidget {
   const QuizMaster({super.key});
   @override
@@ -10,93 +61,136 @@ class QuizMaster extends StatelessWidget {
     debugShowCheckedModeBanner: false,
     title: 'QUIZ MASTER',
     theme: ThemeData.dark().copyWith(
-      scaffoldBackgroundColor: const Color(0xFF0B1020),
-      colorScheme: const ColorScheme.dark(primary: Color(0xFF00C2FF)),
+      scaffoldBackgroundColor: navy,
+      colorScheme: const ColorScheme.dark(primary: cyan, secondary: purple),
+      appBarTheme: const AppBarTheme(backgroundColor: navy, elevation: 0),
+      elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(
+        backgroundColor: cyan, foregroundColor: navy, padding: const EdgeInsets.symmetric(vertical: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        textStyle: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1))),
     ),
     home: const HomePage(),
   );
 }
-
-const qs = [
-  ['¿Cuál es el planeta más grande?', 'What is the largest planet?', ['Marte','Júpiter','Venus','Saturno'], ['Mars','Jupiter','Venus','Saturn'], 1],
-  ['¿Cuántos lados tiene un hexágono?', 'How many sides has a hexagon?', ['5','6','7','8'], ['5','6','7','8'], 1],
-  ['¿Capital de Francia?', 'Capital of France?', ['Roma','Madrid','París','Lisboa'], ['Rome','Madrid','Paris','Lisbon'], 2],
-  ['¿Qué gas usan las plantas en la fotosíntesis?', 'Which gas do plants use for photosynthesis?', ['Oxígeno','Nitrógeno','CO₂','Hidrógeno'], ['Oxygen','Nitrogen','CO₂','Hydrogen'], 2],
-  ['¿Cuánto es 9 × 7?', 'What is 9 × 7?', ['56','63','72','49'], ['56','63','72','49'], 1],
-  ['¿En qué continente está Egipto?', 'Which continent is Egypt in?', ['Asia','Europa','África','Oceanía'], ['Asia','Europe','Africa','Oceania'], 2],
-  ['¿Cuál es el océano más grande?', 'What is the largest ocean?', ['Atlántico','Índico','Ártico','Pacífico'], ['Atlantic','Indian','Arctic','Pacific'], 3],
-  ['¿Qué instrumento tiene teclas blancas y negras?', 'Which instrument has black and white keys?', ['Guitarra','Piano','Violín','Flauta'], ['Guitar','Piano','Violin','Flute'], 1],
-];
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
 class _HomePageState extends State<HomePage> {
   bool en = false;
   @override
   Widget build(BuildContext context) => Scaffold(
     body: Container(
       decoration: const BoxDecoration(gradient: LinearGradient(
-        colors: [Color(0xFF172448), Color(0xFF090D19), Color(0xFF21133B)],
+        colors: [Color(0xFF14264A), navy, Color(0xFF21143B)],
         begin: Alignment.topLeft, end: Alignment.bottomRight)),
       child: SafeArea(child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.fromLTRB(22, 12, 22, 18),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Align(alignment: Alignment.centerRight, child: TextButton(
-            onPressed: () => setState(() => en = !en),
-            child: Text(en ? 'ENGLISH' : 'ESPAÑOL'))),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            const Text('NEXORA GAMES', style: TextStyle(color: Colors.white54, fontSize: 11, letterSpacing: 2)),
+            TextButton.icon(onPressed: () => setState(() => en = !en), icon: const Icon(Icons.language, size: 17),
+              label: Text(en ? 'EN' : 'ES')),
+          ]),
           const Spacer(),
-          const Icon(Icons.bolt, size: 76, color: Color(0xFF00C2FF)),
+          Container(width: 104, height: 104, alignment: Alignment.center,
+            decoration: BoxDecoration(shape: BoxShape.circle, color: cyan.withOpacity(.10),
+              border: Border.all(color: cyan.withOpacity(.45), width: 2),
+              boxShadow: [BoxShadow(color: cyan.withOpacity(.12), blurRadius: 30, spreadRadius: 5)]),
+            child: const Icon(Icons.bolt_rounded, color: cyan, size: 62)),
+          const SizedBox(height: 22),
           const Text('QUIZ MASTER', textAlign: TextAlign.center,
             style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, letterSpacing: 2)),
-          const SizedBox(height: 10),
-          Text(en ? 'Challenge your mind!' : '¡Desafía tu mente!',
-            textAlign: TextAlign.center, style: const TextStyle(color: Colors.white70)),
-          const SizedBox(height: 40),
-          _mode(context, Icons.person, en ? 'Single player' : 'Un jugador',
-            en ? 'START GAME' : 'COMENZAR', () => Navigator.push(context,
-              MaterialPageRoute(builder: (_) => QuizPage(en: en)))),
-          const SizedBox(height: 14),
-          _mode(context, Icons.people, en ? 'Two players' : 'Dos jugadores',
-            en ? 'COMING SOON' : 'PRÓXIMAMENTE', () => _soon(context, en)),
-          const SizedBox(height: 14),
-          _mode(context, Icons.public, en ? 'Online multiplayer' : 'Multijugador online',
-            en ? 'COMING SOON' : 'PRÓXIMAMENTE', () => _soon(context, en)),
+          const SizedBox(height: 9),
+          Text(en ? 'Train your mind. Beat the challenge.' : 'Entrena tu mente. Supera el desafío.',
+            textAlign: TextAlign.center, style: const TextStyle(color: Colors.white70, fontSize: 14)),
+          const SizedBox(height: 36),
+          _homeTile(Icons.person_rounded, en ? 'SINGLE PLAYER' : 'UN JUGADOR',
+            en ? 'Choose a category and play' : 'Elige una categoría y juega', cyan,
+            () => Navigator.push(context, MaterialPageRoute(builder: (_) => CategoryPage(en: en)))),
+          const SizedBox(height: 13),
+          _homeTile(Icons.people_alt_rounded, en ? 'TWO PLAYERS' : 'DOS JUGADORES',
+            en ? 'Coming soon' : 'Próximamente', purple, () => _soon()),
+          const SizedBox(height: 13),
+          _homeTile(Icons.wifi_rounded, en ? 'ONLINE MULTIPLAYER' : 'MULTIJUGADOR ONLINE',
+            en ? 'Coming soon' : 'Próximamente', const Color(0xFF55D6A5), () => _soon()),
           const Spacer(),
-          const Text('NEXORA GAMES', textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white38, letterSpacing: 3, fontSize: 11)),
+          Text(en ? 'VERSION 2.0 • MORE CHALLENGES' : 'VERSIÓN 2.0 • NUEVOS DESAFÍOS',
+            textAlign: TextAlign.center, style: const TextStyle(color: Colors.white38, fontSize: 10, letterSpacing: 1.4)),
         ]),
       )),
     ),
   );
-  void _soon(BuildContext c, bool e) => ScaffoldMessenger.of(c).showSnackBar(
-    SnackBar(content: Text(e ? 'Coming soon' : 'Próximamente')));
-  Widget _mode(BuildContext c, IconData icon, String title, String sub, VoidCallback tap) =>
-    InkWell(onTap: tap, borderRadius: BorderRadius.circular(16), child: Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(color: const Color(0xFF202A48),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF00C2FF).withOpacity(.5))),
-      child: Row(children: [Icon(icon, color: const Color(0xFF00C2FF), size: 28),
-        const SizedBox(width: 14), Expanded(child: Text(title,
-          style: const TextStyle(fontWeight: FontWeight.bold))),
-        Text(sub, style: const TextStyle(color: Color(0xFF00C2FF), fontSize: 10))])));
+
+  Widget _homeTile(IconData icon, String title, String subtitle, Color color, VoidCallback onTap) =>
+    Material(color: Colors.transparent, child: InkWell(onTap: onTap, borderRadius: BorderRadius.circular(18),
+      child: Ink(decoration: BoxDecoration(color: panel, borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: color.withOpacity(.42))),
+        child: Padding(padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 17),
+          child: Row(children: [Icon(icon, color: color, size: 29), const SizedBox(width: 14),
+            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(title, style: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: .7)),
+              const SizedBox(height: 4), Text(subtitle, style: const TextStyle(color: Colors.white60, fontSize: 12)),
+            ])), Icon(Icons.chevron_right_rounded, color: color)])))));
+
+  void _soon() => ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text(en ? 'This mode is coming soon!' : '¡Este modo estará disponible próximamente!')));
+}
+
+class CategoryPage extends StatelessWidget {
+  final bool en;
+  const CategoryPage({super.key, required this.en});
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: Text(en ? 'CHOOSE A CATEGORY' : 'ELIGE UNA CATEGORÍA')),
+    body: Padding(padding: const EdgeInsets.all(20), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(en ? 'What do you want to challenge today?' : '¿Qué quieres poner a prueba hoy?',
+        style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+      const SizedBox(height: 8), Text(en ? '5 questions • 15 seconds each' : '5 preguntas • 15 segundos por pregunta',
+        style: const TextStyle(color: Colors.white60)),
+      const SizedBox(height: 22),
+      Expanded(child: ListView.separated(itemCount: categories.length, separatorBuilder: (_, __) => const SizedBox(height: 13),
+        itemBuilder: (context, index) {
+          final c = categories[index];
+          return Material(color: panel, borderRadius: BorderRadius.circular(18), child: InkWell(
+            borderRadius: BorderRadius.circular(18), onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (_) => QuizPage(en: en, category: c))),
+            child: Container(padding: const EdgeInsets.all(19), decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18), border: Border.all(color: c.color.withOpacity(.45))),
+              child: Row(children: [Container(width: 54, height: 54, decoration: BoxDecoration(
+                color: c.color.withOpacity(.13), borderRadius: BorderRadius.circular(15)),
+                child: Icon(c.icon, color: c.color, size: 29)), const SizedBox(width: 15),
+                Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(en ? c.en : c.es, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  const SizedBox(height: 4), Text(en ? '5 questions' : '5 preguntas', style: const TextStyle(color: Colors.white60, fontSize: 12)),
+                ])), Icon(Icons.arrow_forward_ios_rounded, color: c.color, size: 17)])),
+          ));
+        })),
+    ])),
+  );
 }
 
 class QuizPage extends StatefulWidget {
   final bool en;
-  const QuizPage({super.key, required this.en});
+  final QuizCategory category;
+  const QuizPage({super.key, required this.en, required this.category});
   @override
   State<QuizPage> createState() => _QuizPageState();
 }
+
 class _QuizPageState extends State<QuizPage> {
   int i = 0, score = 0, seconds = 15;
   int? chosen;
   bool answered = false;
   Timer? timer;
-  List get options => qs[i][widget.en ? 3 : 2] as List;
+  QuizQuestion get q => widget.category.questions[i];
+  List<String> get options => widget.en ? q.optionsEn : q.optionsEs;
+
+  @override
+  void initState() { super.initState(); startTimer(); }
   void startTimer() {
     timer?.cancel(); seconds = 15;
     timer = Timer.periodic(const Duration(seconds: 1), (t) {
@@ -105,53 +199,61 @@ class _QuizPageState extends State<QuizPage> {
       else { setState(() => seconds--); }
     });
   }
-  @override
-  void initState() { super.initState(); startTimer(); }
   void choose(int n) {
     if (answered) return;
     timer?.cancel();
-    setState(() { chosen = n; answered = true; if (n == qs[i][4]) score++; });
-    Future.delayed(const Duration(milliseconds: 900), () { if (mounted) next(); });
+    setState(() { chosen = n; answered = true; if (n == q.answer) score++; });
+    Future.delayed(const Duration(milliseconds: 850), () { if (mounted) next(); });
   }
   void next() {
     if (!mounted) return;
-    if (i == qs.length - 1) {
+    if (i == widget.category.questions.length - 1) {
       timer?.cancel();
-      Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (_) => ResultPage(score: score, en: widget.en)));
-    } else { setState(() { i++; chosen = null; answered = false; }); startTimer(); }
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => ResultPage(
+        score: score, en: widget.en, category: widget.category)));
+    } else {
+      setState(() { i++; chosen = null; answered = false; });
+      startTimer();
+    }
   }
   @override
   void dispose() { timer?.cancel(); super.dispose(); }
+
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('QUIZ MASTER'), backgroundColor: Colors.transparent),
-    body: Padding(padding: const EdgeInsets.all(22), child: Column(
+    appBar: AppBar(title: Text(widget.en ? widget.category.en.toUpperCase() : widget.category.es.toUpperCase())),
+    body: Padding(padding: const EdgeInsets.fromLTRB(20, 18, 20, 20), child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text('${widget.en ? 'QUESTION' : 'PREGUNTA'} ${i+1}/${qs.length}'),
-          Text('00:${seconds.toString().padLeft(2,'0')}',
-            style: const TextStyle(color: Color(0xFF00C2FF), fontSize: 20))]),
-        const SizedBox(height: 12),
-        LinearProgressIndicator(value: (i+1)/qs.length, color: const Color(0xFF00C2FF)),
+          Text('${widget.en ? 'QUESTION' : 'PREGUNTA'} ${i + 1}/${widget.category.questions.length}',
+            style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.bold)),
+          Row(children: [const Icon(Icons.timer_outlined, color: cyan, size: 19), const SizedBox(width: 5),
+            Text('00:${seconds.toString().padLeft(2, '0')}', style: const TextStyle(color: cyan, fontSize: 19, fontWeight: FontWeight.bold))]),
+        ]),
+        const SizedBox(height: 13),
+        ClipRRect(borderRadius: BorderRadius.circular(10), child: LinearProgressIndicator(
+          value: (i + 1) / widget.category.questions.length, minHeight: 7, color: widget.category.color,
+          backgroundColor: Colors.white12)),
         const SizedBox(height: 32),
-        Text(qs[i][widget.en ? 1 : 0] as String,
-          style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 24),
+        Text(widget.en ? q.en : q.es,
+          style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold, height: 1.3)),
+        const SizedBox(height: 25),
         ...List.generate(4, (n) {
-          Color border = Colors.white24, fill = const Color(0xFF202A48);
-          if (answered && n == qs[i][4]) { border = Colors.greenAccent; fill = Colors.green.withOpacity(.2); }
-          else if (answered && n == chosen) { border = Colors.redAccent; fill = Colors.red.withOpacity(.2); }
-          return Padding(padding: const EdgeInsets.only(bottom: 12), child: InkWell(
-            onTap: () => choose(n), borderRadius: BorderRadius.circular(14),
-            child: Container(padding: const EdgeInsets.all(17),
-              decoration: BoxDecoration(color: fill, borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: border)),
-              child: Text('${String.fromCharCode(65+n)}.  ${options[n]}',
-                style: const TextStyle(fontSize: 16)))));
+          Color border = Colors.white24, fill = panel;
+          if (answered && n == q.answer) { border = Colors.greenAccent; fill = Colors.green.withOpacity(.18); }
+          else if (answered && n == chosen) { border = Colors.redAccent; fill = Colors.red.withOpacity(.18); }
+          return Padding(padding: const EdgeInsets.only(bottom: 12), child: Material(color: fill,
+            borderRadius: BorderRadius.circular(15), child: InkWell(onTap: () => choose(n),
+              borderRadius: BorderRadius.circular(15), child: Container(padding: const EdgeInsets.all(17),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), border: Border.all(color: border)),
+                child: Row(children: [Container(width: 30, height: 30, alignment: Alignment.center,
+                  decoration: BoxDecoration(color: Colors.white10, borderRadius: BorderRadius.circular(9)),
+                  child: Text(String.fromCharCode(65 + n), style: const TextStyle(fontWeight: FontWeight.bold))),
+                  const SizedBox(width: 13), Expanded(child: Text(options[n], style: const TextStyle(fontSize: 16)))])))));
         }),
         const Spacer(),
-        Text('${widget.en ? 'SCORE' : 'PUNTOS'}: $score', textAlign: TextAlign.center),
+        Text('${widget.en ? 'SCORE' : 'PUNTOS'}: $score', textAlign: TextAlign.center,
+          style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.bold)),
       ])),
   );
 }
@@ -159,24 +261,29 @@ class _QuizPageState extends State<QuizPage> {
 class ResultPage extends StatelessWidget {
   final int score;
   final bool en;
-  const ResultPage({super.key, required this.score, required this.en});
+  final QuizCategory category;
+  const ResultPage({super.key, required this.score, required this.en, required this.category});
   @override
-  Widget build(BuildContext context) => Scaffold(body: Center(child: Padding(
-    padding: const EdgeInsets.all(28), child: Column(mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(Icons.emoji_events, size: 90, color: Color(0xFFFFC857)),
-        const SizedBox(height: 20),
-        Text(en ? 'GAME OVER' : '¡JUEGO TERMINADO!',
-          style: const TextStyle(fontSize: 27, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 12),
-        Text('$score / ${qs.length}', style: const TextStyle(
-          fontSize: 48, color: Color(0xFF00C2FF), fontWeight: FontWeight.bold)),
-        Text(en ? 'Good effort. Try again!' : '¡Buen intento! Vuelve a jugar.'),
-        const SizedBox(height: 32),
-        SizedBox(width: double.infinity, child: ElevatedButton(
-          onPressed: () => Navigator.pushAndRemoveUntil(context,
-            MaterialPageRoute(builder: (_) => const HomePage()), (r) => false),
-          child: Text(en ? 'PLAY AGAIN' : 'VOLVER A JUGAR'))),
-      ]))),
-  );
+  Widget build(BuildContext context) {
+    final message = score == 5 ? (en ? 'PERFECT SCORE!' : '¡PUNTUACIÓN PERFECTA!')
+      : score >= 3 ? (en ? 'GREAT JOB!' : '¡MUY BIEN!') : (en ? 'KEEP PRACTICING!' : '¡SIGUE PRACTICANDO!');
+    return Scaffold(body: Container(decoration: const BoxDecoration(gradient: LinearGradient(
+      colors: [Color(0xFF14264A), navy, Color(0xFF21143B)], begin: Alignment.topLeft, end: Alignment.bottomRight)),
+      child: SafeArea(child: Center(child: Padding(padding: const EdgeInsets.all(28),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Icon(Icons.emoji_events_rounded, size: 94, color: Color(0xFFFFC857)),
+          const SizedBox(height: 22), Text(en ? 'CHALLENGE COMPLETED' : 'DESAFÍO COMPLETADO',
+            textAlign: TextAlign.center, style: const TextStyle(color: Colors.white70, letterSpacing: 1.5)),
+          const SizedBox(height: 12), Text('$score / 5', style: const TextStyle(
+            fontSize: 54, color: cyan, fontWeight: FontWeight.w900)),
+          Text(message, style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8), Text(en ? category.en : category.es, style: const TextStyle(color: Colors.white60)),
+          const SizedBox(height: 34), SizedBox(width: double.infinity, child: ElevatedButton(
+            onPressed: () => Navigator.pushAndRemoveUntil(context,
+              MaterialPageRoute(builder: (_) => const HomePage()), (r) => false),
+            child: Text(en ? 'BACK TO HOME' : 'VOLVER AL INICIO'))),
+        ])),
+      )),
+    );
+  }
 }
