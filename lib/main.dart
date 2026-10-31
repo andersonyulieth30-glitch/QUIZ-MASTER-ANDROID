@@ -81,60 +81,119 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool en = false;
+
   @override
   Widget build(BuildContext context) => Scaffold(
     body: Container(
       decoration: const BoxDecoration(gradient: LinearGradient(
-        colors: [Color(0xFF14264A), navy, Color(0xFF21143B)],
+        colors: [Color(0xFF101F3D), navy, Color(0xFF24143D)],
         begin: Alignment.topLeft, end: Alignment.bottomRight)),
-      child: SafeArea(child: Padding(
-        padding: const EdgeInsets.fromLTRB(22, 12, 22, 18),
+      child: SafeArea(child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(22, 12, 22, 24),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            const Text('NEXORA GAMES', style: TextStyle(color: Colors.white54, fontSize: 11, letterSpacing: 2)),
-            TextButton.icon(onPressed: () => setState(() => en = !en), icon: const Icon(Icons.language, size: 17),
-              label: Text(en ? 'EN' : 'ES')),
+            Row(children: [
+              Container(width: 8, height: 8, decoration: const BoxDecoration(
+                color: Color(0xFF55D6A5), shape: BoxShape.circle)),
+              const SizedBox(width: 8),
+              const Text('NEXORA GAMES', style: TextStyle(color: Colors.white60,
+                fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 2)),
+            ]),
+            OutlinedButton.icon(
+              onPressed: () => setState(() => en = !en),
+              icon: const Icon(Icons.language_rounded, size: 17),
+              label: Text(en ? 'ENGLISH' : 'ESPAÑOL'),
+              style: OutlinedButton.styleFrom(foregroundColor: cyan,
+                side: BorderSide(color: cyan.withOpacity(.45)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+            ),
           ]),
-          const Spacer(),
-          Container(width: 104, height: 104, alignment: Alignment.center,
-            decoration: BoxDecoration(shape: BoxShape.circle, color: cyan.withOpacity(.10),
-              border: Border.all(color: cyan.withOpacity(.45), width: 2),
-              boxShadow: [BoxShadow(color: cyan.withOpacity(.12), blurRadius: 30, spreadRadius: 5)]),
-            child: const Icon(Icons.bolt_rounded, color: cyan, size: 62)),
-          const SizedBox(height: 22),
+          const SizedBox(height: 34),
+          Center(child: Container(width: 112, height: 112,
+            decoration: BoxDecoration(shape: BoxShape.circle,
+              gradient: RadialGradient(colors: [cyan.withOpacity(.25), cyan.withOpacity(.04)]),
+              border: Border.all(color: cyan.withOpacity(.65), width: 2),
+              boxShadow: [BoxShadow(color: cyan.withOpacity(.18), blurRadius: 34, spreadRadius: 4)]),
+            child: const Icon(Icons.bolt_rounded, color: cyan, size: 66))),
+          const SizedBox(height: 23),
           const Text('QUIZ MASTER', textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, letterSpacing: 2)),
-          const SizedBox(height: 9),
-          Text(en ? 'Train your mind. Beat the challenge.' : 'Entrena tu mente. Supera el desafío.',
-            textAlign: TextAlign.center, style: const TextStyle(color: Colors.white70, fontSize: 14)),
-          const SizedBox(height: 36),
+            style: TextStyle(fontSize: 33, fontWeight: FontWeight.w900,
+              letterSpacing: 2.4, color: Colors.white)),
+          const SizedBox(height: 8),
+          Text(en ? 'THINK FAST. PLAY SMART. WIN BIG.' : 'PIENSA RÁPIDO. JUEGA INTELIGENTE. SUPÉRATE.',
+            textAlign: TextAlign.center, style: const TextStyle(color: Colors.white60,
+              fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+          const SizedBox(height: 28),
+          Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(color: Colors.white.withOpacity(.045),
+              borderRadius: BorderRadius.circular(17),
+              border: Border.all(color: Colors.white.withOpacity(.10))),
+            child: Row(children: [
+              const Icon(Icons.auto_awesome_rounded, color: Color(0xFFFFC857), size: 22),
+              const SizedBox(width: 11),
+              Expanded(child: Text(en ? 'Ready for a new challenge?' : '¿Estás listo para un nuevo desafío?',
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600))),
+            ])),
+          const SizedBox(height: 17),
           _homeTile(Icons.person_rounded, en ? 'SINGLE PLAYER' : 'UN JUGADOR',
-            en ? 'Choose a category and play' : 'Elige una categoría y juega', cyan,
-            () => Navigator.push(context, MaterialPageRoute(builder: (_) => CategoryPage(en: en)))),
+            en ? 'Choose a category and test yourself' : 'Elige una categoría y demuestra lo que sabes',
+            cyan, true, () => Navigator.push(context,
+              MaterialPageRoute(builder: (_) => CategoryPage(en: en)))),
           const SizedBox(height: 13),
           _homeTile(Icons.people_alt_rounded, en ? 'TWO PLAYERS' : 'DOS JUGADORES',
-            en ? 'Coming soon' : 'Próximamente', purple, () => _soon()),
+            en ? 'Challenge a friend on one device' : 'Reta a un amigo en el mismo dispositivo',
+            purple, false, () => _soon()),
           const SizedBox(height: 13),
           _homeTile(Icons.wifi_rounded, en ? 'ONLINE MULTIPLAYER' : 'MULTIJUGADOR ONLINE',
-            en ? 'Coming soon' : 'Próximamente', const Color(0xFF55D6A5), () => _soon()),
-          const Spacer(),
-          Text(en ? 'VERSION 2.0 • MORE CHALLENGES' : 'VERSIÓN 2.0 • NUEVOS DESAFÍOS',
-            textAlign: TextAlign.center, style: const TextStyle(color: Colors.white38, fontSize: 10, letterSpacing: 1.4)),
+            en ? 'Play with people around the world' : 'Compite con jugadores de todo el mundo',
+            const Color(0xFF55D6A5), false, () => _soon()),
+          const SizedBox(height: 27),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const Icon(Icons.shield_moon_outlined, color: Colors.white38, size: 14),
+            const SizedBox(width: 7),
+            Text(en ? 'VERSION 2.0  •  MORE CHALLENGES AHEAD' : 'VERSIÓN 2.0  •  MUCHOS RETOS POR VENIR',
+              textAlign: TextAlign.center, style: const TextStyle(color: Colors.white38,
+                fontSize: 9, letterSpacing: 1.1, fontWeight: FontWeight.w600)),
+          ]),
         ]),
       )),
     ),
   );
 
-  Widget _homeTile(IconData icon, String title, String subtitle, Color color, VoidCallback onTap) =>
-    Material(color: Colors.transparent, child: InkWell(onTap: onTap, borderRadius: BorderRadius.circular(18),
-      child: Ink(decoration: BoxDecoration(color: panel, borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: color.withOpacity(.42))),
-        child: Padding(padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 17),
-          child: Row(children: [Icon(icon, color: color, size: 29), const SizedBox(width: 14),
+  Widget _homeTile(IconData icon, String title, String subtitle, Color color,
+      bool active, VoidCallback onTap) => Material(
+    color: Colors.transparent,
+    child: InkWell(onTap: onTap, borderRadius: BorderRadius.circular(19),
+      child: Ink(decoration: BoxDecoration(
+        gradient: LinearGradient(begin: Alignment.centerLeft, end: Alignment.centerRight,
+          colors: [color.withOpacity(.15), panel]),
+        borderRadius: BorderRadius.circular(19),
+        border: Border.all(color: color.withOpacity(active ? .75 : .35), width: active ? 1.4 : 1)),
+        child: Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 17),
+          child: Row(children: [
+            Container(width: 48, height: 48,
+              decoration: BoxDecoration(color: color.withOpacity(.15),
+                borderRadius: BorderRadius.circular(14)),
+              child: Icon(icon, color: color, size: 27)),
+            const SizedBox(width: 14),
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(title, style: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: .7)),
-              const SizedBox(height: 4), Text(subtitle, style: const TextStyle(color: Colors.white60, fontSize: 12)),
-            ])), Icon(Icons.chevron_right_rounded, color: color)])))));
+              Text(title, style: const TextStyle(fontWeight: FontWeight.w900,
+                letterSpacing: .6, fontSize: 13, color: Colors.white)),
+              const SizedBox(height: 5),
+              Text(subtitle, style: const TextStyle(color: Colors.white60, fontSize: 11)),
+            ])),
+            const SizedBox(width: 8),
+            active
+              ? Icon(Icons.arrow_forward_rounded, color: color, size: 23)
+              : Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  decoration: BoxDecoration(color: color.withOpacity(.12),
+                    borderRadius: BorderRadius.circular(8)),
+                  child: Text(en ? 'SOON' : 'PRONTO', style: TextStyle(color: color,
+                    fontSize: 8, fontWeight: FontWeight.w900, letterSpacing: .7))),
+          ])),
+      )),
+    ),
+  );
 
   void _soon() => ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(content: Text(en ? 'This mode is coming soon!' : '¡Este modo estará disponible próximamente!')));
