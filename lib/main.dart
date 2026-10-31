@@ -192,7 +192,6 @@ class _HomePageState extends State<HomePage> {
                     fontSize: 8, fontWeight: FontWeight.w900, letterSpacing: .7))),
           ])),
       )),
-    ),
   );
 
   void _soon() => ScaffoldMessenger.of(context).showSnackBar(
